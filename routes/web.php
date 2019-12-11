@@ -17,6 +17,7 @@ Route::get('/', function () {
 });
 //顯示所有任務的清單
 Route::get('/', function () {
+    return view('tasks');
     //
 });
 // 增加新的任務
