@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     return view('welcome');
 });
+
 //顯示所有任務的清單
 Route::get('/', function () {
     $tasks = Task::orderBy('created_at', 'asc')->get();
@@ -24,6 +25,7 @@ Route::get('/', function () {
     return view('tasks', [ 'tasks' => $tasks ]);
     //將取出的資料$tasks傳遞給tasks視圖
 });
+
 // 增加新的任務
 Route::post('/task', function (Request $request) {
     // 驗證輸入
@@ -35,13 +37,17 @@ Route::post('/task', function (Request $request) {
             ->withInput()
             ->withErrors($validator);
     }
+
     // 建立該任務...
     $task = new Task;
     $task->name = $request->name;
     $task->save();
     return redirect('/');
 });
+
 // 刪除任務
 Route::delete('/task/{task}', function (Task $task) {
-    //
+    $task->delete();
+    return redirect('/');
+
 });
